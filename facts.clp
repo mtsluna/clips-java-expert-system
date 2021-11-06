@@ -38,3 +38,8 @@
     =>
     (printout t "Bodegas" crlf)
 )
+
+(defrule esUltimaOpcion
+    =>
+    (printout t "No hemos podido encontrar una recomendación" crlf)
+)

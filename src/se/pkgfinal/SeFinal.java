@@ -31,8 +31,6 @@ public class SeFinal {
                 .estacion("invierno")
                 .build();
         
-        motor.MotorController.getInstance().ejecutar(pruebaPlazasP, pruebasPlazasV);
-        
         Persona pruebaSkyP = Persona.builder()
                 .edad("> 36")
                 .grupo("Gays")
@@ -45,8 +43,6 @@ public class SeFinal {
                 .estacion("Invierno")
                 .build();
         
-        motor.MotorController.getInstance().ejecutar(pruebaSkyP, pruebasSkyV);
-        
         Persona pruebaBodegaP = Persona.builder()
                 .edad("> 36")
                 .grupo("Pareja")
@@ -58,8 +54,6 @@ public class SeFinal {
                 .plan("Diversion")
                 .estacion("Invierno")
                 .build();
-        
-        motor.MotorController.getInstance().ejecutar(pruebaBodegaP, pruebasBodegaV);
         
     }
     

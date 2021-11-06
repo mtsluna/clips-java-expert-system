@@ -5,12 +5,16 @@
  */
 package motor;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import jess.JessException;
 import jess.Rete;
+import jess.Value;
+import jess.awt.TextAreaWriter;
+import jess.swing.JTextAreaWriter;
 import model.Persona;
 import model.Viaje;
+import se.pkgfinal.Interface;
 
 /**
  *
@@ -18,34 +22,29 @@ import model.Viaje;
  */
 public class MotorController {
     
-    Rete motor;
-
-    private static MotorController instance;
+    public Rete rete;
     
-    private MotorController() {
+    public MotorController() {
         try {
-            motor = new Rete();
-            motor.reset();
-            motor.batch("facts.clp");
+            rete = new Rete();
+            rete.reset();
+            rete.batch("facts.clp");
         } catch (JessException ex) {
             System.out.print(ex.toString());
         }
     }
     
-    public static MotorController getInstance() {
-        if (instance == null) {
-           instance = new MotorController(); 
-        }
-        return instance;
-    }
-    
-    public void ejecutar(Persona p, Viaje v){
+    public String ejecutar(Persona p, Viaje v){
         try {
-            motor.add(p);
-            motor.add(v);
-            motor.run();
+            rete.add(p);
+            rete.add(v);
+            StringWriter stringWriter = new StringWriter();
+            rete.addOutputRouter("t", stringWriter);
+            rete.run();
+            return stringWriter.toString().trim();
         } catch (JessException ex) {
             System.out.print(ex.toString());
+            return "";
         }
     }
     
