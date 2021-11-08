@@ -5,6 +5,9 @@
  */
 package se.pkgfinal;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.util.Date;
 import model.Persona;
 import model.Viaje;
 import motor.MotorController;
@@ -362,8 +365,6 @@ public class Interface extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButton21ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        System.out.println("Init motor");
-        
         Persona persona = Persona.builder()
                 .edad(jComboBox3.getSelectedItem().toString())
                 .grupo(jComboBox2.getSelectedItem().toString())
@@ -381,11 +382,20 @@ public class Interface extends javax.swing.JFrame {
         
         if (text.length() > 43) {
             text = text.replace("No hemos podido encontrar una recomendación", "");
+        } 
+        
+        try {
+           String data = persona.toString() + ", " + viaje.toString();
+           BufferedWriter writer = new BufferedWriter(new FileWriter(".log", true));
+           String log = "\nUser: anon - Date: " + new Date().toString()+" - Data: ["+data+"] - Result: "+text;
+           writer.append(log);
+
+           writer.close();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
         }
         
         jTextArea1.setText("========= Resultado ========\n"+text);
-        
-        System.out.println("Close motor");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
